@@ -5,8 +5,12 @@ RUN apt-get update
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
 
+# nginx
+RUN apt-get install -y nginx
+
 # Google Chrome
-ARG CHROME_VERSION=86.0.4240.193-1
+# ARG CHROME_VERSION=86.0.4240.193-1
+ARG CHROME_VERSION=88.0.4324.182-1
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
 	&& echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
 	&& apt-get update -qqy \
@@ -16,7 +20,8 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 	&& sed -i 's/"$HERE\/chrome"/"$HERE\/chrome" --no-sandbox/g' /opt/google/chrome/google-chrome
 
 # ChromeDriver
-ARG CHROME_DRIVER_VERSION=86.0.4240.22
+# ARG CHROME_DRIVER_VERSION=86.0.4240.22
+ARG CHROME_DRIVER_VERSION=88.0.4324.96
 RUN wget -q -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
 	&& unzip /tmp/chromedriver.zip -d /opt \
 	&& rm /tmp/chromedriver.zip \
